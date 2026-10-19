@@ -10,7 +10,7 @@
     <meta name="keywords" content="умный дом Чита, СМАРТ 75, автоматизация дома Чита, Wiren Board Чита, умный дом с Алисой, защита от протечек, электрокарнизы Чита, видеонаблюдение с распознаванием номеров">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph (красивое превью при отправке ссылки в мессенджерах) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="СМАРТ 75 — Умные дома в Чите">
     <meta property="og:description" content="Умный дом, который берет рутину на себя. Проводные и беспроводные системы, интеграция с Алисой и локальное управление.">
     <meta property="og:type" content="website">
@@ -64,7 +64,7 @@
         });
 
         function trackGoal(goalName, params = {}) {
-            console.log(`[Yandex.Metrika] Цель: ${goalName}`, params);
+            console.log(`[Yandex.Метрика] Цель: ${goalName}`, params);
             if (typeof ym !== 'undefined') {
                 ym(YM_COUNTER_ID, 'reachGoal', goalName, params);
             }
@@ -73,7 +73,7 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/99999999" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
     <style>
-        /* Фиксация полосы прокрутки, чтобы шапка никогда не съезжала при смене коротких и длинных вкладок */
+        /* Фиксация полосы прокрутки, чтобы шапка никогда не съезжала при смене вкладок */
         html {
             overflow-y: scroll;
             scrollbar-gutter: stable;
@@ -109,13 +109,31 @@
             from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Анимация вылета блоков (Fade-in & Slide-up) */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            opacity: 0;
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
         /* Акцентный градиент в стиле Алисы */
         .brand-gradient {
             background: linear-gradient(135deg, #7B3FE4 0%, #4B7BFF 100%);
         }
+        /* Неактивная и активная вкладка: темно-синий фон #19284C и белый текст */
+        .nav-pill {
+            color: #4B5563;
+            background-color: transparent;
+        }
+        .nav-pill:hover {
+            color: #19284C;
+        }
         .nav-pill.active {
-            background-color: #19284C;
-            color: #FFFFFF;
+            background-color: #19284C !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 2px 8px rgba(25, 40, 76, 0.25);
         }
         /* Скрытие полосы прокрутки для мобильных табов */
         .no-scrollbar::-webkit-scrollbar {
@@ -132,58 +150,58 @@
     <!-- ========================================================= -->
     <!-- ПЛАВАЮЩАЯ ШАПКА-КАПСУЛА С ВАШИМ ЛОГОТИПОМ «СМАРТ 75»       -->
     <!-- ========================================================= -->
-    <div class="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 pointer-events-none">
-        <header class="pointer-events-auto bg-white/90 backdrop-blur-2xl border border-black/[0.07] shadow-[0_10px_36px_rgba(0,0,0,0.09)] rounded-[28px] md:rounded-full p-2.5 sm:px-5 sm:py-2.5 w-full max-w-[940px]">
+    <div class="fixed top-2.5 sm:top-5 left-0 right-0 z-50 flex justify-center px-2.5 sm:px-6 pointer-events-none">
+        <header class="pointer-events-auto bg-white/90 backdrop-blur-2xl border border-black/[0.07] shadow-[0_10px_36px_rgba(0,0,0,0.09)] rounded-[24px] md:rounded-full p-2 sm:px-5 sm:py-2.5 w-full max-w-[940px]">
             
             <!-- Верхний ряд шапки -->
-            <div class="flex items-center justify-between gap-2">
-                <!-- Фирменный логотип СМАРТ 75 -->
-                <button onclick="navigateTo('home')" class="flex flex-col items-center text-center group pl-1 shrink-0 focus:outline-none">
-                    <svg class="w-16 sm:w-20 h-4 sm:h-5 -mb-1 group-hover:-translate-y-0.5 transition-transform" viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="flex items-center justify-between gap-2 px-1 sm:px-0">
+                <!-- Фирменный логотип СМАРТ 75[span_0](start_span)[span_0](end_span) -->
+                <button type="button" onclick="navigateTo('home')" class="flex flex-col items-center text-center group shrink-0 focus:outline-none">
+                    <svg class="w-14 sm:w-20 h-3.5 sm:h-5 -mb-1 group-hover:-translate-y-0.5 transition-transform" viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 23L60 5L112 23" stroke="#28B2A5" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span class="font-extrabold text-[15px] sm:text-[18px] tracking-tight text-[#19284C] leading-none">
+                    <span class="font-extrabold text-[14px] sm:text-[18px] tracking-tight text-[#19284C] leading-none">
                         СМАРТ 75
                     </span>
-                    <span class="text-[10px] sm:text-[11px] text-[#8E95A5] font-medium leading-none mt-1">
+                    <span class="text-[9px] sm:text-[11px] text-[#8E95A5] font-medium leading-none mt-1">
                         умные дома · Чита
                     </span>
                 </button>
 
                 <!-- Вкладки для ПК -->
                 <nav class="hidden md:flex items-center gap-1 bg-[#F4F4F6] p-1 rounded-full">
-                    <button onclick="navigateTo('home')" data-page="home" class="nav-pill active px-4 py-1.5 rounded-full text-[13px] font-semibold transition-colors">
+                    <button type="button" onclick="navigateTo('home')" data-page="home" class="nav-pill active px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all">
                         Возможности
                     </button>
-                    <button onclick="navigateTo('architectures')" data-page="architectures" class="nav-pill px-4 py-1.5 rounded-full text-[13px] font-semibold text-neutral-600 hover:text-black transition-colors">
+                    <button type="button" onclick="navigateTo('architectures')" data-page="architectures" class="nav-pill px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all">
                         Архитектуры
                     </button>
-                    <button onclick="navigateTo('process')" data-page="process" class="nav-pill px-4 py-1.5 rounded-full text-[13px] font-semibold text-neutral-600 hover:text-black transition-colors">
+                    <button type="button" onclick="navigateTo('process')" data-page="process" class="nav-pill px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all">
                         Этапы работы
                     </button>
-                    <button onclick="navigateTo('contacts')" data-page="contacts" class="nav-pill px-4 py-1.5 rounded-full text-[13px] font-semibold text-neutral-600 hover:text-black transition-colors">
+                    <button type="button" onclick="navigateTo('contacts')" data-page="contacts" class="nav-pill px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all">
                         Контакты
                     </button>
                 </nav>
 
                 <!-- Кнопка быстрого действия -->
-                <button onclick="navigateTo('contacts'); trackGoal('header_cta_click');" class="brand-gradient hover:opacity-95 text-white text-xs sm:text-[13px] font-semibold px-4 sm:px-5 py-2.5 rounded-full transition-all shadow-sm shrink-0">
+                <button type="button" onclick="navigateTo('contacts'); trackGoal('header_cta_click');" class="brand-gradient hover:opacity-95 text-white text-[11px] sm:text-[13px] font-semibold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full transition-all shadow-sm shrink-0">
                     Рассчитать проект
                 </button>
             </div>
 
             <!-- Вкладки для МОБИЛЬНЫХ УСТРОЙСТВ -->
-            <nav class="flex md:hidden items-center justify-between gap-1 bg-[#F4F4F6] p-1 rounded-2xl mt-2.5 overflow-x-auto no-scrollbar">
-                <button onclick="navigateTo('home')" data-page="home" class="nav-pill active flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold text-center whitespace-nowrap transition-colors">
+            <nav class="grid grid-cols-4 md:hidden gap-1 bg-[#F4F4F6] p-1 rounded-2xl mt-2">
+                <button type="button" onclick="navigateTo('home')" data-page="home" class="nav-pill active py-2 px-1 rounded-xl text-[11px] min-[380px]:text-xs font-semibold text-center truncate transition-all">
                     Возможности
                 </button>
-                <button onclick="navigateTo('architectures')" data-page="architectures" class="nav-pill flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold text-neutral-600 text-center whitespace-nowrap transition-colors">
+                <button type="button" onclick="navigateTo('architectures')" data-page="architectures" class="nav-pill py-2 px-1 rounded-xl text-[11px] min-[380px]:text-xs font-semibold text-center truncate transition-all">
                     Архитектуры
                 </button>
-                <button onclick="navigateTo('process')" data-page="process" class="nav-pill flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold text-neutral-600 text-center whitespace-nowrap transition-colors">
-                    Этапы работы
+                <button type="button" onclick="navigateTo('process')" data-page="process" class="nav-pill py-2 px-1 rounded-xl text-[11px] min-[380px]:text-xs font-semibold text-center truncate transition-all">
+                    Этапы
                 </button>
-                <button onclick="navigateTo('contacts')" data-page="contacts" class="nav-pill flex-1 py-1.5 px-2.5 rounded-xl text-xs font-semibold text-neutral-600 text-center whitespace-nowrap transition-colors">
+                <button type="button" onclick="navigateTo('contacts')" data-page="contacts" class="nav-pill py-2 px-1 rounded-xl text-[11px] min-[380px]:text-xs font-semibold text-center truncate transition-all">
                     Контакты
                 </button>
             </nav>
@@ -192,7 +210,7 @@
     </div>
 
     <!-- ОСНОВНОЙ КОНТЕНТ -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-36 md:pt-28 pb-6">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-32 md:pt-28 pb-6">
 
         <!-- ========================================== -->
         <!-- СТРАНИЦА 1: ВОЗМОЖНОСТИ                    -->
@@ -200,7 +218,7 @@
         <section id="page-home" class="page-section active space-y-8 sm:space-y-12">
             
             <!-- Hero Блок -->
-            <div class="relative rounded-[32px] sm:rounded-[40px] overflow-hidden bg-neutral-900 text-white min-h-[460px] sm:min-h-[520px] flex items-end p-6 sm:p-12 shadow-xl">
+            <div class="relative rounded-[32px] sm:rounded-[40px] overflow-hidden bg-neutral-900 text-white min-h-[460px] sm:min-h-[520px] flex items-end p-6 sm:p-12 shadow-xl animate-slide-up">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80" alt="Умный дом в Чите — современный интерьер" class="absolute inset-0 w-full h-full object-cover opacity-65">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent"></div>
                 
@@ -216,18 +234,18 @@
                         Проектируем и создаем удобные системы автоматизации для квартир и домов: от беспроводных решений для готового ремонта до надежных проводных систем на этапе строительства.
                     </p>
                     <div class="flex flex-wrap gap-3 pt-1">
-                        <button onclick="navigateTo('contacts'); trackGoal('hero_order_click');" class="w-full sm:w-auto brand-gradient hover:opacity-95 text-white font-semibold px-7 py-3.5 rounded-full transition-all shadow-lg shadow-indigo-500/25 text-sm sm:text-base">
+                        <button type="button" onclick="navigateTo('contacts'); trackGoal('hero_order_click');" class="w-full sm:w-auto brand-gradient hover:opacity-95 text-white font-semibold px-7 py-3.5 rounded-full transition-all shadow-lg shadow-indigo-500/25 text-sm sm:text-base">
                             Обсудить ваш объект
                         </button>
-                        <button onclick="navigateTo('architectures')" class="w-full sm:w-auto bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold px-7 py-3.5 rounded-full transition-all border border-white/20 text-sm sm:text-base">
+                        <button type="button" onclick="navigateTo('architectures')" class="w-full sm:w-auto bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-semibold px-7 py-3.5 rounded-full transition-all border border-white/20 text-sm sm:text-base">
                             Посмотреть решения
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Интерактивный виджет «Попробуйте сценарии» (БЕЗ ЗНАЧКОВ) -->
-            <div class="bento-card p-5 sm:p-10">
+            <!-- Интерактивный виджет «Попробуйте сценарии» -->
+            <div class="bento-card p-5 sm:p-10 animate-slide-up" style="animation-delay: 0.12s;">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 sm:mb-8">
                     <div>
                         <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600">Интерактивное демо</span>
@@ -235,13 +253,13 @@
                     </div>
                     <!-- Переключатели сценариев -->
                     <div class="grid grid-cols-3 sm:flex gap-1.5 bg-[#F4F4F6] p-1.5 rounded-full">
-                        <button onclick="setScene('morning')" id="scene-btn-morning" class="scene-btn bg-white shadow-sm text-black px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all">
+                        <button type="button" onclick="setScene('morning')" id="scene-btn-morning" class="scene-btn bg-white shadow-sm text-black px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all">
                             Утро
                         </button>
-                        <button onclick="setScene('cinema')" id="scene-btn-cinema" class="scene-btn text-neutral-600 hover:text-black px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all">
+                        <button type="button" onclick="setScene('cinema')" id="scene-btn-cinema" class="scene-btn text-neutral-600 hover:text-black px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all">
                             Кинозал
                         </button>
-                        <button onclick="setScene('away')" id="scene-btn-away" class="scene-btn text-neutral-600 hover:text-black px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all">
+                        <button type="button" onclick="setScene('away')" id="scene-btn-away" class="scene-btn text-neutral-600 hover:text-black px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all">
                             Я ушел
                         </button>
                     </div>
@@ -306,14 +324,14 @@
             </div>
 
             <!-- Bento Grid -->
-            <div class="space-y-4">
+            <div class="space-y-4 animate-slide-up" style="animation-delay: 0.24s;">
                 <h2 class="text-2xl sm:text-3xl font-bold">Все системы дома в одном приложении</h2>
                 <p class="text-neutral-500 text-sm sm:text-base max-w-2xl">Никаких десяти разных приложений от кондиционера, розеток и штор. Мы объединяем технику разных производителей в единую удобную систему и голосовое управление с Алисой.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
                     
                     <!-- Карточка 1: Освещение и шторы -->
-                    <div class="md:col-span-2 bento-card overflow-hidden grid grid-cols-1 sm:grid-cols-2">
+                    <div class="md:col-span-2 bento-card overflow-hidden grid grid-cols-1 sm:grid-cols-2 animate-slide-up" style="animation-delay: 0.3s;">
                         <div class="p-6 sm:p-7 flex flex-col justify-between">
                             <div>
                                 <span class="text-xs font-semibold text-indigo-600 uppercase">Освещение и шторы</span>
@@ -347,20 +365,29 @@
                         </div>
                     </div>
 
-                    <!-- Карточка 2: Климат -->
-                    <div class="bento-card p-6 sm:p-7 flex flex-col justify-between">
-                        <div>
+                    <!-- Карточка 2: Климат с полупрозрачным термометром на фоне -->
+                    <div class="bento-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden animate-slide-up" style="animation-delay: 0.38s;">
+                        <svg class="absolute -right-6 -bottom-6 w-48 h-48 text-sky-600 opacity-[0.08] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="85" y="28" width="30" height="102" rx="15" stroke="currentColor" stroke-width="6"/>
+                            <circle cx="100" cy="142" r="26" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="6"/>
+                            <path d="M100 76V132" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                            <line x1="124" y1="52" x2="138" y2="52" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                            <line x1="124" y1="74" x2="134" y2="74" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                            <line x1="124" y1="96" x2="138" y2="96" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+                        </svg>
+
+                        <div class="relative z-10">
                             <span class="text-xs font-semibold text-indigo-600 uppercase">Комфортная температура</span>
                             <h3 class="text-xl font-bold mt-2">Единый климат</h3>
                             <p class="text-sm text-neutral-500 mt-2 leading-relaxed">
                                 Теплый пол, радиаторы и кондиционер больше не «воюют» друг с другом. Автоматическая подача свежего воздуха по датчикам CO₂.
                             </p>
                         </div>
-                        <span class="text-xs font-medium text-neutral-400 mt-6">Точность до 0.5 °C в каждой спальне</span>
+                        <span class="relative z-10 text-xs font-medium text-neutral-400 mt-6">Точность до 0.5 °C в каждой спальне</span>
                     </div>
 
                     <!-- Карточка 3: Защита от аварий с полупрозрачным датчиком протечки -->
-                    <div class="bento-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden">
+                    <div class="bento-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden animate-slide-up" style="animation-delay: 0.46s;">
                         <svg class="absolute -right-6 -bottom-6 w-48 h-48 text-teal-600 opacity-[0.08] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="100" cy="100" r="88" stroke="currentColor" stroke-width="4" stroke-dasharray="10 10"/>
                             <circle cx="100" cy="100" r="68" stroke="currentColor" stroke-width="6"/>
@@ -382,7 +409,7 @@
                     </div>
 
                     <!-- Карточка 4: Голос и сенсорные панели -->
-                    <div class="md:col-span-2 bento-card overflow-hidden grid grid-cols-1 sm:grid-cols-2">
+                    <div class="md:col-span-2 bento-card overflow-hidden grid grid-cols-1 sm:grid-cols-2 animate-slide-up" style="animation-delay: 0.54s;">
                         <div class="p-6 sm:p-7 flex flex-col justify-between">
                             <div>
                                 <span class="text-xs font-semibold text-indigo-600 uppercase">Голос и сенсорные панели</span>
@@ -392,7 +419,7 @@
                                 </p>
                             </div>
                             <div class="mt-6">
-                                <button onclick="navigateTo('architectures')" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
+                                <button type="button" onclick="navigateTo('architectures')" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800">
                                     Посмотреть архитектуры →
                                 </button>
                             </div>
@@ -429,10 +456,23 @@
                         </div>
                     </div>
 
-                    <!-- БЛОК: ВИДЕОНАБЛЮДЕНИЕ, РАСПОЗНАВАНИЕ ЛИЦ И НОМЕРОВ АВТО -->
-                    <div class="md:col-span-3 bento-card overflow-hidden grid grid-cols-1 lg:grid-cols-12">
-                        <div class="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between">
-                            <div>
+                    <!-- БЛОК: ВИДЕОНАБЛЮДЕНИЕ С ПОЛУПРОЗРАЧНОЙ КАМЕРОЙ НА ФОНЕ -->
+                    <div class="md:col-span-3 bento-card overflow-hidden grid grid-cols-1 lg:grid-cols-12 relative animate-slide-up" style="animation-delay: 0.62s;">
+                        <div class="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+                            <!-- Полупрозрачная векторная иллюстрация камеры видеонаблюдения на фоне текстового блока -->
+                            <svg class="absolute -right-6 -bottom-6 w-52 h-52 text-indigo-600 opacity-[0.08] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Купольное основание и корпус камеры -->
+                                <circle cx="100" cy="100" r="84" stroke="currentColor" stroke-width="4" stroke-dasharray="10 10"/>
+                                <rect x="42" y="64" width="96" height="64" rx="18" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="6"/>
+                                <!-- Объектив -->
+                                <circle cx="90" cy="96" r="18" stroke="currentColor" stroke-width="6"/>
+                                <circle cx="90" cy="96" r="7" fill="currentColor"/>
+                                <!-- Козырек / ИК-блок и кронштейн -->
+                                <path d="M138 78L168 62V130L138 114V78Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+                                <path d="M74 128V154H46" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                            <div class="relative z-10">
                                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold">
                                     <span>Умная видеоаналитика</span>
                                 </div>
@@ -441,7 +481,7 @@
                                     Камеры не просто пишут архив, а помогают вам каждый день. При подъезде вашей машины система распознаёт госномер, автоматически открывает ворота и включает свет на парковке. А распознавание лиц у калитки снимает дом с охраны и открывает замок.
                                 </p>
                             </div>
-                            <div class="mt-6 flex flex-wrap gap-2">
+                            <div class="relative z-10 mt-6 flex flex-wrap gap-2">
                                 <span class="text-xs font-medium bg-[#F4F4F6] px-3.5 py-1.5 rounded-full">Распознавание номеров авто</span>
                                 <span class="text-xs font-medium bg-[#F4F4F6] px-3.5 py-1.5 rounded-full">Распознавание лиц у входа</span>
                                 <span class="text-xs font-medium bg-[#F4F4F6] px-3.5 py-1.5 rounded-full">Фото-уведомления в мессенджеры</span>
@@ -449,7 +489,7 @@
                             </div>
                         </div>
 
-                        <div class="lg:col-span-6 bg-[#121318] p-5 sm:p-7 flex flex-col justify-between relative overflow-hidden min-h-[260px] group">
+                        <div class="lg:col-span-6 bg-[#121318] p-5 sm:p-7 flex flex-col justify-between relative overflow-hidden min-h-[260px] group z-10">
                             <div class="flex justify-between items-center text-[11px] font-mono text-neutral-400 border-b border-white/10 pb-3">
                                 <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> КАМЕРА 01 • ВЪЕЗД И КАЛИТКА</span>
                                 <span class="text-emerald-400">ЛОКАЛЬНЫЙ АРХИВ</span>
@@ -478,7 +518,7 @@
 
                             <div class="flex justify-between items-center text-[11px] text-neutral-400 pt-2 border-t border-white/10">
                                 <span>Точное определение людей и машин без ложных тревог</span>
-                                <button onclick="navigateTo('contacts')" class="text-indigo-400 hover:text-indigo-300 font-semibold">Обсудить →</button>
+                                <button type="button" onclick="navigateTo('contacts')" class="text-indigo-400 hover:text-indigo-300 font-semibold">Обсудить →</button>
                             </div>
                         </div>
                     </div>
@@ -518,7 +558,7 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-between">
                         <span class="text-xs text-neutral-400">Коттеджи и новостройки</span>
-                        <button onclick="navigateTo('contacts')" class="text-sm font-semibold text-indigo-600 hover:underline">Обсудить →</button>
+                        <button type="button" onclick="navigateTo('contacts')" class="text-sm font-semibold text-indigo-600 hover:underline">Обсудить →</button>
                     </div>
                 </div>
 
@@ -539,7 +579,7 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-between">
                         <span class="text-xs text-neutral-400">Готовые квартиры</span>
-                        <button onclick="navigateTo('contacts')" class="text-sm font-semibold text-indigo-600 hover:underline">Обсудить →</button>
+                        <button type="button" onclick="navigateTo('contacts')" class="text-sm font-semibold text-indigo-600 hover:underline">Обсудить →</button>
                     </div>
                 </div>
 
@@ -560,7 +600,7 @@
                     </div>
                     <div class="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-between">
                         <span class="text-xs text-neutral-400">Индивидуальные проекты</span>
-                        <button onclick="navigateTo('contacts')" class="text-sm font-semibold text-indigo-600 hover:underline">Обсудить →</button>
+                        <button type="button" onclick="navigateTo('contacts')" class="text-sm font-semibold text-indigo-600 hover:underline">Обсудить →</button>
                     </div>
                 </div>
             </div>
@@ -635,7 +675,7 @@
                         </p>
                     </div>
                     <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
-                        <button onclick="navigateTo('contacts'); trackGoal('audit_rework_click');" class="w-full brand-gradient hover:opacity-95 text-white font-semibold py-4 px-6 rounded-full transition-all shadow-md text-sm sm:text-base text-center">
+                        <button type="button" onclick="navigateTo('contacts'); trackGoal('audit_rework_click');" class="w-full brand-gradient hover:opacity-95 text-white font-semibold py-4 px-6 rounded-full transition-all shadow-md text-sm sm:text-base text-center">
                             Записаться на диагностику
                         </button>
                     </div>
@@ -681,7 +721,7 @@
                 <!-- Форма с проверкой номера, защитой от спама и согласием 152-ФЗ -->
                 <div class="lg:col-span-7 bento-card p-6 sm:p-10">
                     <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-4 sm:space-y-5" novalidate>
-                        <!-- Скрытое поле защиты от спам-ботов (Honeypot для Web3Forms) -->
+                        <!-- Скрытое поле защиты от спам-ботов -->
                         <input type="checkbox" name="botcheck" id="lead-botcheck" class="hidden" style="display:none;">
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -741,14 +781,14 @@
         <div class="text-center sm:text-left space-y-1">
             <p>© 2026 СМАРТ 75. Умные дома в Чите • ТЦ Караван, офис 410 • +7 (914) 481-49-91</p>
             <p>
-                <button onclick="openPrivacyModal()" class="hover:text-neutral-700 underline">Политика конфиденциальности и обработки персональных данных (152-ФЗ)</button>
+                <button type="button" onclick="openPrivacyModal()" class="hover:text-neutral-700 underline">Политика конфиденциальности и обработки персональных данных (152-ФЗ)</button>
             </p>
         </div>
         <div class="flex flex-wrap justify-center gap-5">
-            <button onclick="navigateTo('home')" class="hover:text-neutral-700">Возможности</button>
-            <button onclick="navigateTo('architectures')" class="hover:text-neutral-700">Архитектуры</button>
-            <button onclick="navigateTo('process')" class="hover:text-neutral-700">Этапы работы</button>
-            <button onclick="navigateTo('contacts')" class="hover:text-neutral-700">Контакты</button>
+            <button type="button" onclick="navigateTo('home')" class="hover:text-neutral-700">Возможности</button>
+            <button type="button" onclick="navigateTo('architectures')" class="hover:text-neutral-700">Архитектуры</button>
+            <button type="button" onclick="navigateTo('process')" class="hover:text-neutral-700">Этапы работы</button>
+            <button type="button" onclick="navigateTo('contacts')" class="hover:text-neutral-700">Контакты</button>
         </div>
     </footer>
 
@@ -759,7 +799,7 @@
         <div class="bg-white rounded-[28px] max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
             <div class="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
                 <h3 class="font-bold text-base sm:text-lg text-[#19284C]">Политика в отношении обработки персональных данных</h3>
-                <button onclick="closePrivacyModal()" class="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 font-bold text-sm">✕</button>
+                <button type="button" onclick="closePrivacyModal()" class="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 font-bold text-sm">✕</button>
             </div>
             <div class="p-6 overflow-y-auto text-xs sm:text-sm text-neutral-600 space-y-4 leading-relaxed">
                 <p><strong>1. Общие положения</strong><br>
@@ -785,7 +825,7 @@
                 Пользователь может в любой момент получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, либо отозвать свое согласие на обработку персональных данных, обратившись к Оператору по телефону +7 (914) 481-49-91 или по адресу: г. Чита, ТЦ Караван, офис 410.</p>
             </div>
             <div class="px-6 py-4 border-t border-neutral-100 flex justify-end">
-                <button onclick="closePrivacyModal()" class="px-6 py-2.5 rounded-full bg-[#19284C] text-white text-xs sm:text-sm font-semibold">Понятно</button>
+                <button type="button" onclick="closePrivacyModal()" class="px-6 py-2.5 rounded-full bg-[#19284C] text-white text-xs sm:text-sm font-semibold">Понятно</button>
             </div>
         </div>
     </div>
@@ -794,7 +834,6 @@
     <!-- ЛОГИКА САЙТА: РОУТИНГ, СЦЕНАРИИ, ОТПРАВКА  -->
     <!-- ========================================== -->
     <script>
-        // Ваш активный ключ Web3Forms для получения заявок на почту
         const WEB3FORMS_ACCESS_KEY = "afbd92b7-fe51-45af-934c-b03e3906cd00";
 
         function navigateTo(pageId) {
@@ -810,20 +849,20 @@
             document.querySelectorAll('.nav-pill').forEach(btn => {
                 if (btn.dataset.page === pageId) {
                     btn.classList.add('active');
-                    btn.classList.remove('text-neutral-600');
                 } else {
                     btn.classList.remove('active');
-                    btn.classList.add('text-neutral-600');
                 }
             });
 
-            history.pushState(null, null, `#${pageId}`);
+            try {
+                history.pushState(null, null, `#${pageId}`);
+            } catch (e) {}
+
             if (typeof ym !== 'undefined') {
                 ym(YM_COUNTER_ID, 'hit', window.location.href);
             }
         }
 
-        // Модальное окно Политики конфиденциальности (152-ФЗ)
         function openPrivacyModal() {
             const modal = document.getElementById('privacy-modal');
             modal.classList.remove('hidden');
@@ -889,7 +928,6 @@
             trackGoal('scene_interaction', { scene: sceneKey });
         }
 
-        // Автоформатирование и проверка российского номера телефона (+7 (XXX) XXX-XX-XX)
         const phoneInput = document.getElementById('lead-phone');
         const phoneError = document.getElementById('phone-error');
 
@@ -922,19 +960,18 @@
             return digits.length === 11 && digits.startsWith('7');
         }
 
-        // Отправка формы на почту (через Web3Forms) и фиксация цели в Яндекс.Метрике
         async function submitLeadForm(e) {
             e.preventDefault();
             const nameInput = document.getElementById('lead-name');
+            const objectSelect = document.getElementById('lead-object');
+            const messageInput = document.getElementById('lead-message');
             const consentCheckbox = document.getElementById('lead-consent');
             const consentError = document.getElementById('consent-error');
             const botcheck = document.getElementById('lead-botcheck');
             const statusEl = document.getElementById('form-status');
             const submitBtn = document.getElementById('submit-btn');
 
-            if (botcheck && botcheck.checked) {
-                return; // Блокировка спам-ботов
-            }
+            if (botcheck && botcheck.checked) return;
 
             if (!nameInput.value.trim()) {
                 nameInput.focus();
@@ -955,27 +992,25 @@
                 consentError.classList.add('hidden');
             }
 
-            const payload = {
-                access_key: WEB3FORMS_ACCESS_KEY,
-                subject: `Новая заявка с сайта СМАРТ 75 от ${nameInput.value.trim()}`,
-                from_name: "Сайт СМАРТ 75 (Чита)",
-                Имя: nameInput.value.trim(),
-                Телефон: phoneInput.value,
-                Объект: document.getElementById('lead-object').value,
-                Сообщение: document.getElementById('lead-message').value || 'Не указано'
-            };
+            const formData = new FormData();
+            formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+            formData.append("subject", `Новая заявка СМАРТ 75 от ${nameInput.value.trim()}`);
+            formData.append("from_name", "Сайт СМАРТ 75 (Чита)");
+            formData.append("name", nameInput.value.trim());
+            formData.append("phone", phoneInput.value);
+            formData.append("object_type", objectSelect.value);
+            formData.append("message", messageInput.value.trim() || "Не указано");
 
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
             statusEl.classList.add('hidden');
 
-            trackGoal('lead_form_submit', { object: payload.Объект });
+            trackGoal('lead_form_submit', { object: objectSelect.value });
 
             try {
                 const response = await fetch("https://api.web3forms.com/submit", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
                 const result = await response.json();
                 if (!result.success) throw new Error(result.message || "Ошибка отправки");
