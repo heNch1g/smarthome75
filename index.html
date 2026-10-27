@@ -21,7 +21,7 @@
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "СМАРТ 75",
+      "name": "СМАРТ 75 (ИП Воловиков Алексей Евгеньевич)",
       "description": "Проектирование, монтаж и настройка систем умного дома в Чите",
       "telephone": "+7-914-481-49-91",
       "address": {
@@ -89,35 +89,37 @@
             background: #FFFFFF;
             border-radius: 32px;
             box-shadow: 0 6px 28px rgba(0, 0, 0, 0.04);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .bento-card:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-            }
         }
         /* Плавное переключение страниц */
         .page-section {
             display: none;
-            animation: fadeIn 0.3s ease-out forwards;
         }
         .page-section.active {
             display: block;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Анимация вылета блоков (Fade-in & Slide-up) */
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-slide-up {
+
+        /* ========================================================= */
+        /* ЗАМЕТНАЯ АНИМАЦИЯ ВЫЛЕТА БЛОКОВ ПРИ ПРОКРУТКЕ И КЛИКАХ    */
+        /* ========================================================= */
+        .reveal-block {
             opacity: 0;
-            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: translateY(48px) scale(0.96);
+            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), 
+                        box-shadow 0.3s ease;
+            will-change: opacity, transform;
         }
+        .reveal-block.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        @media (min-width: 768px) {
+            .bento-card.reveal-block.is-visible:hover {
+                transform: translateY(-5px) scale(1.005);
+                box-shadow: 0 20px 44px rgba(25, 40, 76, 0.09);
+            }
+        }
+
         /* Акцентный градиент в стиле Алисы */
         .brand-gradient {
             background: linear-gradient(135deg, #7B3FE4 0%, #4B7BFF 100%);
@@ -155,7 +157,7 @@
             
             <!-- Верхний ряд шапки -->
             <div class="flex items-center justify-between gap-2 px-1 sm:px-0">
-                <!-- Фирменный логотип СМАРТ 75[span_0](start_span)[span_0](end_span) -->
+                <!-- Фирменный логотип СМАРТ 75 -->
                 <button type="button" onclick="navigateTo('home')" class="flex flex-col items-center text-center group shrink-0 focus:outline-none">
                     <svg class="w-14 sm:w-20 h-3.5 sm:h-5 -mb-1 group-hover:-translate-y-0.5 transition-transform" viewBox="0 0 120 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 23L60 5L112 23" stroke="#28B2A5" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -218,7 +220,7 @@
         <section id="page-home" class="page-section active space-y-8 sm:space-y-12">
             
             <!-- Hero Блок -->
-            <div class="relative rounded-[32px] sm:rounded-[40px] overflow-hidden bg-neutral-900 text-white min-h-[460px] sm:min-h-[520px] flex items-end p-6 sm:p-12 shadow-xl animate-slide-up">
+            <div class="reveal-block relative rounded-[32px] sm:rounded-[40px] overflow-hidden bg-neutral-900 text-white min-h-[460px] sm:min-h-[520px] flex items-end p-6 sm:p-12 shadow-xl">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80" alt="Умный дом в Чите — современный интерьер" class="absolute inset-0 w-full h-full object-cover opacity-65">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent"></div>
                 
@@ -245,7 +247,7 @@
             </div>
 
             <!-- Интерактивный виджет «Попробуйте сценарии» -->
-            <div class="bento-card p-5 sm:p-10 animate-slide-up" style="animation-delay: 0.12s;">
+            <div class="bento-card reveal-block p-5 sm:p-10">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 sm:mb-8">
                     <div>
                         <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600">Интерактивное демо</span>
@@ -324,14 +326,16 @@
             </div>
 
             <!-- Bento Grid -->
-            <div class="space-y-4 animate-slide-up" style="animation-delay: 0.24s;">
-                <h2 class="text-2xl sm:text-3xl font-bold">Все системы дома в одном приложении</h2>
-                <p class="text-neutral-500 text-sm sm:text-base max-w-2xl">Никаких десяти разных приложений от кондиционера, розеток и штор. Мы объединяем технику разных производителей в единую удобную систему и голосовое управление с Алисой.</p>
+            <div class="space-y-4">
+                <div class="reveal-block">
+                    <h2 class="text-2xl sm:text-3xl font-bold">Все системы дома в одном приложении</h2>
+                    <p class="text-neutral-500 text-sm sm:text-base max-w-2xl mt-2">Никаких десяти разных приложений от кондиционера, розеток и штор. Мы объединяем технику разных производителей в единую удобную систему и голосовое управление с Алисой.</p>
+                </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
                     
                     <!-- Карточка 1: Освещение и шторы -->
-                    <div class="md:col-span-2 bento-card overflow-hidden grid grid-cols-1 sm:grid-cols-2 animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="md:col-span-2 bento-card reveal-block overflow-hidden grid grid-cols-1 sm:grid-cols-2">
                         <div class="p-6 sm:p-7 flex flex-col justify-between">
                             <div>
                                 <span class="text-xs font-semibold text-indigo-600 uppercase">Освещение и шторы</span>
@@ -366,7 +370,7 @@
                     </div>
 
                     <!-- Карточка 2: Климат с полупрозрачным термометром на фоне -->
-                    <div class="bento-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden animate-slide-up" style="animation-delay: 0.38s;">
+                    <div class="bento-card reveal-block p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden" data-delay="120">
                         <svg class="absolute -right-6 -bottom-6 w-48 h-48 text-sky-600 opacity-[0.08] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="85" y="28" width="30" height="102" rx="15" stroke="currentColor" stroke-width="6"/>
                             <circle cx="100" cy="142" r="26" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="6"/>
@@ -387,7 +391,7 @@
                     </div>
 
                     <!-- Карточка 3: Защита от аварий с полупрозрачным датчиком протечки -->
-                    <div class="bento-card p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden animate-slide-up" style="animation-delay: 0.46s;">
+                    <div class="bento-card reveal-block p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden">
                         <svg class="absolute -right-6 -bottom-6 w-48 h-48 text-teal-600 opacity-[0.08] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="100" cy="100" r="88" stroke="currentColor" stroke-width="4" stroke-dasharray="10 10"/>
                             <circle cx="100" cy="100" r="68" stroke="currentColor" stroke-width="6"/>
@@ -409,7 +413,7 @@
                     </div>
 
                     <!-- Карточка 4: Голос и сенсорные панели -->
-                    <div class="md:col-span-2 bento-card overflow-hidden grid grid-cols-1 sm:grid-cols-2 animate-slide-up" style="animation-delay: 0.54s;">
+                    <div class="md:col-span-2 bento-card reveal-block overflow-hidden grid grid-cols-1 sm:grid-cols-2" data-delay="120">
                         <div class="p-6 sm:p-7 flex flex-col justify-between">
                             <div>
                                 <span class="text-xs font-semibold text-indigo-600 uppercase">Голос и сенсорные панели</span>
@@ -457,17 +461,14 @@
                     </div>
 
                     <!-- БЛОК: ВИДЕОНАБЛЮДЕНИЕ С ПОЛУПРОЗРАЧНОЙ КАМЕРОЙ НА ФОНЕ -->
-                    <div class="md:col-span-3 bento-card overflow-hidden grid grid-cols-1 lg:grid-cols-12 relative animate-slide-up" style="animation-delay: 0.62s;">
+                    <div class="md:col-span-3 bento-card reveal-block overflow-hidden grid grid-cols-1 lg:grid-cols-12 relative">
                         <div class="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
-                            <!-- Полупрозрачная векторная иллюстрация камеры видеонаблюдения на фоне текстового блока -->
+                            <!-- Полупрозрачная векторная иллюстрация камеры видеонаблюдения -->
                             <svg class="absolute -right-6 -bottom-6 w-52 h-52 text-indigo-600 opacity-[0.08] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Купольное основание и корпус камеры -->
                                 <circle cx="100" cy="100" r="84" stroke="currentColor" stroke-width="4" stroke-dasharray="10 10"/>
                                 <rect x="42" y="64" width="96" height="64" rx="18" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="6"/>
-                                <!-- Объектив -->
                                 <circle cx="90" cy="96" r="18" stroke="currentColor" stroke-width="6"/>
                                 <circle cx="90" cy="96" r="7" fill="currentColor"/>
-                                <!-- Козырек / ИК-блок и кронштейн -->
                                 <path d="M138 78L168 62V130L138 114V78Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
                                 <path d="M74 128V154H46" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -531,7 +532,7 @@
         <!-- СТРАНИЦА 2: АРХИТЕКТУРЫ                    -->
         <!-- ========================================== -->
         <section id="page-architectures" class="page-section space-y-8 sm:space-y-10">
-            <div class="max-w-3xl">
+            <div class="max-w-3xl reveal-block">
                 <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600">Гибкий подход</span>
                 <h2 class="text-3xl sm:text-4xl font-bold mt-2">Мы не привязаны к одному бренду</h2>
                 <p class="text-neutral-500 mt-3 text-sm sm:text-lg">
@@ -541,7 +542,7 @@
 
             <!-- 3 карточки архитектур -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div class="bento-card p-6 sm:p-7 flex flex-col justify-between">
+                <div class="bento-card reveal-block p-6 sm:p-7 flex flex-col justify-between">
                     <div>
                         <div class="mb-4">
                             <span class="px-3 py-1 rounded-full text-xs font-semibold bg-neutral-900 text-white">Черновой ремонт</span>
@@ -562,7 +563,7 @@
                     </div>
                 </div>
 
-                <div class="bento-card p-6 sm:p-7 flex flex-col justify-between border-2 border-indigo-600/20">
+                <div class="bento-card reveal-block p-6 sm:p-7 flex flex-col justify-between border-2 border-indigo-600/20" data-delay="120">
                     <div>
                         <div class="mb-4">
                             <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800">Без штробления стен</span>
@@ -583,7 +584,7 @@
                     </div>
                 </div>
 
-                <div class="bento-card p-6 sm:p-7 flex flex-col justify-between">
+                <div class="bento-card reveal-block p-6 sm:p-7 flex flex-col justify-between" data-delay="240">
                     <div>
                         <div class="mb-4">
                             <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Максимум гибкости</span>
@@ -606,7 +607,7 @@
             </div>
 
             <!-- БЛОК: ГОЛОСОВЫЕ АССИСТЕНТЫ И ЯНДЕКС АЛИСА -->
-            <div class="bento-card p-6 sm:p-10 bg-gradient-to-br from-[#19284C] via-[#1E2238] to-indigo-950 text-white">
+            <div class="bento-card reveal-block p-6 sm:p-10 bg-gradient-to-br from-[#19284C] via-[#1E2238] to-indigo-950 text-white">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                     <div class="lg:col-span-7 space-y-3">
                         <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-indigo-200">Удобное голосовое управление</span>
@@ -633,7 +634,7 @@
         <!-- СТРАНИЦА 3: ЭТАПЫ РАБОТЫ                   -->
         <!-- ========================================== -->
         <section id="page-process" class="page-section space-y-8 sm:space-y-10">
-            <div class="max-w-3xl">
+            <div class="max-w-3xl reveal-block">
                 <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600">Как мы работаем</span>
                 <h2 class="text-3xl sm:text-4xl font-bold mt-2">От первой встречи до фразы «Алиса, я дома»</h2>
                 <p class="text-neutral-500 mt-3 text-sm sm:text-base">
@@ -642,22 +643,22 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
-                <div class="bento-card p-6">
+                <div class="bento-card reveal-block p-6">
                     <span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 font-bold text-sm flex items-center justify-center mb-4">01</span>
                     <h3 class="font-bold text-base sm:text-lg">Встреча и подбор</h3>
                     <p class="text-xs sm:text-sm text-neutral-500 mt-2">Изучаем планировку, привычки семьи и подбираем оптимальное решение под ваш бюджет.</p>
                 </div>
-                <div class="bento-card p-6">
+                <div class="bento-card reveal-block p-6" data-delay="100">
                     <span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 font-bold text-sm flex items-center justify-center mb-4">02</span>
                     <h3 class="font-bold text-base sm:text-lg">Проектирование</h3>
                     <p class="text-xs sm:text-sm text-neutral-500 mt-2">Готовим схему щита, план проводки или карту размещения беспроводных устройств и камер.</p>
                 </div>
-                <div class="bento-card p-6">
+                <div class="bento-card reveal-block p-6" data-delay="200">
                     <span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 font-bold text-sm flex items-center justify-center mb-4">03</span>
                     <h3 class="font-bold text-base sm:text-lg">Установка и настройка</h3>
                     <p class="text-xs sm:text-sm text-neutral-500 mt-2">Настраиваем оборудование, создаем автоматические сценарии, подключаем Алису и удобное приложение.</p>
                 </div>
-                <div class="bento-card p-6">
+                <div class="bento-card reveal-block p-6" data-delay="300">
                     <span class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 font-bold text-sm flex items-center justify-center mb-4">04</span>
                     <h3 class="font-bold text-base sm:text-lg">Поддержка</h3>
                     <p class="text-xs sm:text-sm text-neutral-500 mt-2">Докручиваем сценарии после вашего заселения и настраиваем резервное копирование системы.</p>
@@ -665,7 +666,7 @@
             </div>
 
             <!-- БЛОК ПРО ПЕРЕДЕЛКУ И ДОВЕДЕНИЕ ДО УМА -->
-            <div class="bento-card p-6 sm:p-10 border-2 border-indigo-500/15">
+            <div class="bento-card reveal-block p-6 sm:p-10 border-2 border-indigo-500/15">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                     <div class="lg:col-span-8 space-y-3">
                         <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Аудит, исправление и модернизация</span>
@@ -684,56 +685,67 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- СТРАНИЦА 4: КОНТАКТЫ И ФОРМА ЗАЯВКИ        -->
+        <!-- СТРАНИЦА 4: КОНТАКТЫ                       -->
         <!-- ========================================== -->
-        <section id="page-contacts" class="page-section">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
-                
-                <div class="lg:col-span-5 space-y-5">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600">СМАРТ 75 • Контакты</span>
-                    <h2 class="text-3xl sm:text-4xl font-bold">Расскажите о вашем проекте</h2>
-                    <p class="text-neutral-500 text-sm sm:text-base leading-relaxed">
-                        Оставьте номер телефона и краткое описание задачи. Мы позвоним или напишем вам в удобном мессенджере, проведем бесплатную консультацию и предложим подходящее решение.
-                    </p>
+        <section id="page-contacts" class="page-section space-y-8">
+            <div class="max-w-3xl reveal-block">
+                <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600">СМАРТ 75 • Контакты</span>
+                <h2 class="text-3xl sm:text-4xl font-bold mt-2">Свяжитесь с нами для расчёта проекта</h2>
+                <p class="text-neutral-500 text-sm sm:text-base leading-relaxed mt-3">
+                    Позвоните нам или напишите в удобном мессенджере — мы проведем бесплатную консультацию, ответим на вопросы и подберем оптимальное решение под ваш ремонт и задачи.
+                </p>
+            </div>
 
-                    <!-- Адрес и телефон в Чите -->
-                    <div class="bento-card p-6 space-y-5">
-                        <div>
-                            <p class="text-xs font-semibold uppercase text-neutral-400">Наш офис</p>
-                            <p class="font-bold text-base mt-1 text-[#19284C]">Чита, ТЦ Караван, офис 410</p>
-                            <p class="text-xs text-neutral-500 mt-0.5">Приём по предварительной записи</p>
-                        </div>
-
-                        <div class="pt-4 border-t border-neutral-100">
-                            <p class="text-xs font-semibold uppercase text-neutral-400">Телефон и мессенджеры</p>
-                            <a href="tel:+79144814991" onclick="trackGoal('phone_click');" class="font-bold text-lg sm:text-xl mt-1 block text-[#19284C] hover:text-indigo-600 transition-colors">
-                                +7 (914) 481-49-91
-                            </a>
-                        </div>
-
-                        <div class="pt-4 border-t border-neutral-100">
-                            <p class="text-xs text-neutral-400">Прозрачная смета</p>
-                            <p class="font-semibold text-sm mt-0.5">Без абонентской платы и скрытых подписок</p>
-                        </div>
+            <!-- Карточки прямых контактов в Чите -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="bento-card reveal-block p-7 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold uppercase text-indigo-600">Телефон и мессенджеры</span>
+                        <a href="tel:+79144814991" onclick="trackGoal('phone_click');" class="font-extrabold text-2xl mt-2 block text-[#19284C] hover:text-indigo-600 transition-colors">
+                            +7 (914) 481-49-91
+                        </a>
+                        <p class="text-sm text-neutral-500 mt-2">Отвечаем на звонки и сообщения в популярных мессенджерах.</p>
                     </div>
+                    <a href="tel:+79144814991" onclick="trackGoal('phone_click');" class="mt-6 w-full brand-gradient hover:opacity-95 text-white font-semibold py-3.5 px-5 rounded-full transition-all shadow-sm text-sm text-center block">
+                        Позвонить сейчас
+                    </a>
                 </div>
 
-                <!-- Форма с проверкой номера, защитой от спама и согласием 152-ФЗ -->
-                <div class="lg:col-span-7 bento-card p-6 sm:p-10">
-                    <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-4 sm:space-y-5" novalidate>
-                        <!-- Скрытое поле защиты от спам-ботов -->
-                        <input type="checkbox" name="botcheck" id="lead-botcheck" class="hidden" style="display:none;">
+                <div class="bento-card reveal-block p-7 flex flex-col justify-between" data-delay="120">
+                    <div>
+                        <span class="text-xs font-semibold uppercase text-indigo-600">Наш офис в Чите</span>
+                        <p class="font-bold text-xl mt-2 text-[#19284C]">ТЦ «Караван», офис 410</p>
+                        <p class="text-sm text-neutral-500 mt-2">г. Чита. Приём и демонстрация оборудования проводятся по предварительной записи.</p>
+                    </div>
+                    <span class="text-xs font-medium text-neutral-400 mt-6">Согласуем удобное для вас время встречи</span>
+                </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="lead-name" class="block text-xs font-semibold uppercase text-neutral-500 mb-1.5">Ваше имя *</label>
-                                <input type="text" id="lead-name" name="name" required placeholder="Имя" class="w-full px-4 py-3.5 rounded-2xl bg-[#F4F4F6] border border-transparent focus:border-indigo-500 focus:bg-white outline-none transition-all text-base sm:text-sm">
-                            </div>
-                            <div>
-                                <label for="lead-phone" class="block text-xs font-semibold uppercase text-neutral-500 mb-1.5">Номер телефона *</label>
-                                <input type="tel" id="lead-phone" name="phone" required placeholder="+7 (914) 000-00-00" class="w-full px-4 py-3.5 rounded-2xl bg-[#F4F4F6] border border-transparent focus:border-indigo-500 focus:bg-white outline-none transition-all text-base sm:text-sm">
-                                <p id="phone-error" class="text-xs text-red-600 font-medium mt-1.5 hidden">Пожалуйста, введите корректный 11-значный номер телефона</p>
-                            </div>
+                <div class="bento-card reveal-block p-7 flex flex-col justify-between" data-delay="240">
+                    <div>
+                        <span class="text-xs font-semibold uppercase text-emerald-600">Прозрачные условия</span>
+                        <p class="font-bold text-xl mt-2 text-[#19284C]">Без абонентской платы</p>
+                        <p class="text-sm text-neutral-500 mt-2">Локальное управление без скрытых платных подписок и навязывания лишних блоков.</p>
+                    </div>
+                    <span class="text-xs font-medium text-emerald-600 mt-6">Официальный договор и гарантия</span>
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- ФОРМА ОБРАТНОЙ СВЯЗИ ВРЕМЕННО ОТКЛЮЧЕНА (ЗАКОММЕНТИРОВАНА ПО ВАШЕЙ ПРОСЬБЕ) -->
+            <!-- Поле «Имя» убрано, оставлен только обязательный номер телефона            -->
+            <!-- Чтобы включить форму обратно, просто удалите теги комментария ниже        -->
+            <!-- ========================================================================= -->
+            <!--
+            <div class="bento-card reveal-block p-6 sm:p-10 max-w-2xl">
+                <h3 class="text-xl font-bold mb-4 text-[#19284C]">Оставить заявку на расчёт</h3>
+                <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-4 sm:space-y-5" novalidate>
+                    <input type="checkbox" name="botcheck" id="lead-botcheck" class="hidden" style="display:none;">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="lead-phone" class="block text-xs font-semibold uppercase text-neutral-500 mb-1.5">Номер телефона *</label>
+                            <input type="tel" id="lead-phone" name="phone" required placeholder="+7 (914) 000-00-00" class="w-full px-4 py-3.5 rounded-2xl bg-[#F4F4F6] border border-transparent focus:border-indigo-500 focus:bg-white outline-none transition-all text-base sm:text-sm">
+                            <p id="phone-error" class="text-xs text-red-600 font-medium mt-1.5 hidden">Пожалуйста, введите корректный 11-значный номер телефона</p>
                         </div>
 
                         <div>
@@ -746,40 +758,41 @@
                                 <option value="Коммерческое помещение">Коммерческое помещение</option>
                             </select>
                         </div>
+                    </div>
 
-                        <div>
-                            <label for="lead-message" class="block text-xs font-semibold uppercase text-neutral-500 mb-1.5">Что хочется сделать?</label>
-                            <textarea id="lead-message" name="message" rows="3" placeholder="Например: удобный свет, шторы, климат, открытие ворот по номеру авто, защита от протечек и управление через Алису..." class="w-full px-4 py-3.5 rounded-2xl bg-[#F4F4F6] border border-transparent focus:border-indigo-500 focus:bg-white outline-none transition-all text-base sm:text-sm"></textarea>
-                        </div>
+                    <div>
+                        <label for="lead-message" class="block text-xs font-semibold uppercase text-neutral-500 mb-1.5">Что хочется сделать?</label>
+                        <textarea id="lead-message" name="message" rows="3" placeholder="Например: удобный свет, шторы, климат, открытие ворот по номеру авто, защита от протечек и управление через Алису..." class="w-full px-4 py-3.5 rounded-2xl bg-[#F4F4F6] border border-transparent focus:border-indigo-500 focus:bg-white outline-none transition-all text-base sm:text-sm"></textarea>
+                    </div>
 
-                        <!-- Обязательный чекбокс согласия по 152-ФЗ РФ -->
-                        <div class="pt-1">
-                            <label class="flex items-start gap-3 cursor-pointer select-none">
-                                <input type="checkbox" id="lead-consent" required checked class="mt-0.5 w-4 h-4 rounded border-neutral-300 text-indigo-600 focus:ring-indigo-500 shrink-0 accent-[#19284C]">
-                                <span class="text-xs text-neutral-500 leading-relaxed">
-                                    Я даю согласие на обработку моих персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» и принимаю условия 
-                                    <button type="button" onclick="openPrivacyModal()" class="text-indigo-600 hover:underline font-medium">Политики конфиденциальности</button>.
-                                </span>
-                            </label>
-                            <p id="consent-error" class="text-xs text-red-600 font-medium mt-1 hidden">Для отправки заявки необходимо согласие на обработку персональных данных</p>
-                        </div>
+                    <div class="pt-1">
+                        <label class="flex items-start gap-3 cursor-pointer select-none">
+                            <input type="checkbox" id="lead-consent" required checked class="mt-0.5 w-4 h-4 rounded border-neutral-300 text-indigo-600 focus:ring-indigo-500 shrink-0 accent-[#19284C]">
+                            <span class="text-xs text-neutral-500 leading-relaxed">
+                                Я даю согласие на обработку моих персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных» и принимаю условия 
+                                <button type="button" onclick="openPrivacyModal()" class="text-indigo-600 hover:underline font-medium">Политики конфиденциальности</button>.
+                            </span>
+                        </label>
+                        <p id="consent-error" class="text-xs text-red-600 font-medium mt-1 hidden">Для отправки заявки необходимо согласие на обработку персональных данных</p>
+                    </div>
 
-                        <button type="submit" id="submit-btn" class="w-full brand-gradient hover:opacity-95 text-white font-semibold py-4 rounded-full transition-all shadow-lg shadow-indigo-500/20 text-sm sm:text-base">
-                            Отправить заявку на расчет
-                        </button>
+                    <button type="submit" id="submit-btn" class="w-full brand-gradient hover:opacity-95 text-white font-semibold py-4 rounded-full transition-all shadow-lg shadow-indigo-500/20 text-sm sm:text-base">
+                        Отправить заявку на расчет
+                    </button>
 
-                        <p id="form-status" class="text-center text-sm font-medium hidden"></p>
-                    </form>
-                </div>
+                    <p id="form-status" class="text-center text-sm font-medium hidden"></p>
+                </form>
             </div>
+            -->
         </section>
 
     </main>
 
-    <!-- ФУТЕР -->
+    <!-- ФУТЕР С ЮРИДИЧЕСКИМИ РЕКВИЗИТАМИ ИП -->
     <footer class="max-w-6xl mx-auto px-4 sm:px-6 py-8 mt-8 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 gap-4">
         <div class="text-center sm:text-left space-y-1">
-            <p>© 2026 СМАРТ 75. Умные дома в Чите • ТЦ Караван, офис 410 • +7 (914) 481-49-91</p>
+            <p>© 2026 СМАРТ 75. Умные дома в Чите • ТЦ «Караван», офис 410 • +7 (914) 481-49-91</p>
+            <p>ИП Воловиков Алексей Евгеньевич • ИНН 753004727523 • ОГРНИП 319753600015493</p>
             <p>
                 <button type="button" onclick="openPrivacyModal()" class="hover:text-neutral-700 underline">Политика конфиденциальности и обработки персональных данных (152-ФЗ)</button>
             </p>
@@ -793,6 +806,21 @@
     </footer>
 
     <!-- ========================================================= -->
+    <!-- КОМПАКТНОЕ УВЕДОМЛЕНИЕ О СБОРЕ COOKIE (ПО ТРЕБОВАНИЮ 152-ФЗ)-->
+    <!-- ========================================================= -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 z-50 hidden justify-center pointer-events-none">
+        <div class="pointer-events-auto bg-white/95 backdrop-blur-2xl border border-black/10 shadow-[0_12px_40px_rgba(0,0,0,0.12)] rounded-2xl sm:rounded-full px-5 py-3.5 max-w-2xl w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-600">
+            <p class="leading-relaxed text-center sm:text-left">
+                Мы используем файлы cookie и сервис Яндекс.Метрика для удобства работы сайта и анализа посещаемости в соответствии с 
+                <button type="button" onclick="openPrivacyModal()" class="text-[#19284C] font-semibold underline hover:text-indigo-600">Политикой конфиденциальности</button>.
+            </p>
+            <button type="button" onclick="acceptCookies()" class="bg-[#19284C] hover:bg-indigo-950 text-white font-semibold px-5 py-2 rounded-full shrink-0 transition-colors w-full sm:w-auto">
+                Понятно
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
     <!-- МОДАЛЬНОЕ ОКНО: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ (152-ФЗ РФ)   -->
     <!-- ========================================================= -->
     <div id="privacy-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
@@ -802,27 +830,34 @@
                 <button type="button" onclick="closePrivacyModal()" class="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 font-bold text-sm">✕</button>
             </div>
             <div class="p-6 overflow-y-auto text-xs sm:text-sm text-neutral-600 space-y-4 leading-relaxed">
-                <p><strong>1. Общие положения</strong><br>
-                Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые компанией «СМАРТ 75» (адрес: г. Чита, ТЦ Караван, офис 410, телефон: +7 (914) 481-49-91, далее — Оператор).</p>
+                <p><strong>1. Общие положения и сведения об Операторе</strong><br>
+                1.1. Настоящая Политика в отношении обработки персональных данных (далее — Политика) составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки и меры по обеспечению безопасности персональных данных.<br>
+                1.2. Оператором персональных данных является:<br>
+                <strong>Индивидуальный предприниматель Воловиков Алексей Евгеньевич</strong> (коммерческое обозначение — «СМАРТ 75»)<br>
+                <strong>ИНН:</strong> 753004727523<br>
+                <strong>ОГРНИП:</strong> 319753600015493<br>
+                <strong>Адрес места осуществления деятельности:</strong> Российская Федерация, Забайкальский край, г. Чита, ТЦ «Караван», офис 410.<br>
+                <strong>Контактный телефон:</strong> +7 (914) 481-49-91.</p>
 
-                <p><strong>2. Основные понятия и состав обрабатываемых данных</strong><br>
-                Оператор обрабатывает следующие персональные данные Пользователя, которые Пользователь предоставляет самостоятельно при заполнении формы обратной связи на сайте:<br>
-                — Имя;<br>
-                — Номер контактного телефона;<br>
-                — Сведения об объекте и пожелания к проекту (текст сообщения).<br>
-                Также на сайте происходит сбор и обработка обезличенных данных о посетителях (в т.ч. файлов «cookie») с помощью сервиса интернет-статистики Яндекс.Метрика.</p>
+                <p><strong>2. Категории и состав обрабатываемых данных</strong><br>
+                2.1. В рамках работы сайта Оператор обрабатывает следующие категории данных посетителей (Субъектов персональных данных):<br>
+                — Технические и метрические данные, автоматически передаваемые устройством Пользователя при посещении сайта: файлы «cookie», IP-адрес, сведения о браузере и операционной системе, время посещения и действия на страницах сайта (посредством аналитического сервиса ООО «ЯНДЕКС» — Яндекс.Метрика);<br>
+                — Контактный номер телефона и сведения об объекте автоматизации (в случае самостоятельного обращения Пользователя к Оператору по телефону, в мессенджерах или через формы обратной связи).</p>
 
-                <p><strong>3. Цели обработки персональных данных</strong><br>
-                Цель обработки персональных данных Пользователя — установление с Пользователем обратной связи, включая направление уведомлений, запросов, консультирование по вопросам проектирования и монтажа систем автоматизации («умный дом»), расчет стоимости услуг и обработка заявок от Пользователя.</p>
+                <p><strong>3. Цели и правовые основания обработки персональных данных</strong><br>
+                3.1. Обработка персональных данных осуществляется исключительно в следующих целях:<br>
+                — Консультирование Пользователя по услугам проектирования, монтажа и настройки систем автоматизации («умный дом»), подготовка смет и коммерческих предложений;<br>
+                — Обеспечение стабильной работы сайта, улучшение пользовательского интерфейса и анализ статистики посещаемости.<br>
+                3.2. Правовым основанием обработки является добровольное согласие Пользователя (ст. 6, ст. 9 Федерального закона № 152-ФЗ), выражаемое при продолжении использования сайта (в отношении файлов «cookie») либо при направлении обращения Оператору.</p>
 
-                <p><strong>4. Правовые основания обработки персональных данных</strong><br>
-                Оператор обрабатывает персональные данные Пользователя только в случае их заполнения и/или отправки Пользователем самостоятельно через специальную форму на сайте. Заполняя соответствующую форму и нажимая кнопку отправки, Пользователь выражает свое согласие с данной Политикой.</p>
+                <p><strong>4. Порядок сбора, хранения, локализации и защиты данных</strong><br>
+                4.1. Оператор принимает необходимые правовые, организационные и технические меры для защиты персональных данных от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования и распространения.<br>
+                4.2. В соответствии с ч. 5 ст. 18 Федерального закона № 152-ФЗ сбор, запись, систематизация, накопление и хранение данных граждан Российской Федерации осуществляются с использованием баз данных, находящихся на территории Российской Федерации.<br>
+                4.3. Пользователь вправе в любой момент ограничить или отключить использование файлов «cookie» в настройках своего браузера.</p>
 
-                <p><strong>5. Порядок сбора, хранения, передачи и других видов обработки</strong><br>
-                Безопасность персональных данных, которые обрабатываются Оператором, обеспечивается путем реализации правовых, организационных и технических мер, необходимых для выполнения в полном объеме требований действующего законодательства Российской Федерации в области защиты персональных данных. Оператор обеспечивает сохранность персональных данных и принимает все возможные меры, исключающие доступ к персональным данным неуполномоченных лиц. Персональные данные Пользователя никогда, ни при каких условиях не будут переданы третьим лицам, за исключением случаев, связанных с исполнением действующего законодательства РФ.</p>
-
-                <p><strong>6. Заключительные положения и отзыв согласия</strong><br>
-                Пользователь может в любой момент получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, либо отозвать свое согласие на обработку персональных данных, обратившись к Оператору по телефону +7 (914) 481-49-91 или по адресу: г. Чита, ТЦ Караван, офис 410.</p>
+                <p><strong>5. Сроки обработки и порядок отзыва согласия</strong><br>
+                5.1. Персональные данные обрабатываются до достижения целей их обработки либо до момента отзыва согласия Пользователем.<br>
+                5.2. Пользователь имеет право в любой момент получить информацию, касающуюся обработки его данных, а также потребовать их уточнения, блокирования или уничтожения (отозвать согласие), обратившись к Оператору по телефону +7 (914) 481-49-91 или лично по адресу: г. Чита, ТЦ «Караван», офис 410. Оператор прекращает обработку и уничтожает данные в срок, установленный ч. 5 ст. 21 Федерального закона № 152-ФЗ.</p>
             </div>
             <div class="px-6 py-4 border-t border-neutral-100 flex justify-end">
                 <button type="button" onclick="closePrivacyModal()" class="px-6 py-2.5 rounded-full bg-[#19284C] text-white text-xs sm:text-sm font-semibold">Понятно</button>
@@ -831,10 +866,41 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- ЛОГИКА САЙТА: РОУТИНГ, СЦЕНАРИИ, ОТПРАВКА  -->
+    <!-- ЛОГИКА САЙТА: АНИМАЦИИ, РОУТИНГ, COOKIE    -->
     <!-- ========================================== -->
     <script>
-        const WEB3FORMS_ACCESS_KEY = "afbd92b7-fe51-45af-934c-b03e3906cd00";
+        // Наблюдатель прокрутки для плавного вылета карточек при попадании на экран
+        let revealObserver;
+
+        function initScrollReveal(container) {
+            if (revealObserver) {
+                revealObserver.disconnect();
+            }
+
+            const blocks = container.querySelectorAll('.reveal-block');
+            blocks.forEach(el => {
+                el.classList.remove('is-visible');
+            });
+
+            revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = parseInt(entry.target.dataset.delay || '0', 10);
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, delay);
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            requestAnimationFrame(() => {
+                blocks.forEach(el => revealObserver.observe(el));
+            });
+        }
 
         function navigateTo(pageId) {
             document.querySelectorAll('.page-section').forEach(section => {
@@ -844,6 +910,7 @@
             if (target) {
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                initScrollReveal(target);
             }
 
             document.querySelectorAll('.nav-pill').forEach(btn => {
@@ -862,6 +929,39 @@
                 ym(YM_COUNTER_ID, 'hit', window.location.href);
             }
         }
+
+        // Уведомление о сборе файлов Cookie
+        function initCookieBanner() {
+            try {
+                if (!localStorage.getItem('smart75_cookie_accepted')) {
+                    const banner = document.getElementById('cookie-banner');
+                    if (banner) {
+                        banner.classList.remove('hidden');
+                        banner.classList.add('flex');
+                    }
+                }
+            } catch (e) {}
+        }
+
+        function acceptCookies() {
+            try {
+                localStorage.setItem('smart75_cookie_accepted', 'true');
+            } catch (e) {}
+            const banner = document.getElementById('cookie-banner');
+            if (banner) {
+                banner.classList.add('hidden');
+                banner.classList.remove('flex');
+            }
+        }
+
+        // Запускаем анимацию и проверку Cookie при первом открытии сайта
+        window.addEventListener('DOMContentLoaded', () => {
+            const activeSection = document.querySelector('.page-section.active');
+            if (activeSection) {
+                initScrollReveal(activeSection);
+            }
+            initCookieBanner();
+        });
 
         function openPrivacyModal() {
             const modal = document.getElementById('privacy-modal');
@@ -928,32 +1028,38 @@
             trackGoal('scene_interaction', { scene: sceneKey });
         }
 
+        /* =========================================================================
+           СКРИПТ ОТПРАВКИ ФОРМЫ (ЗАКОММЕНТИРОВАН ДО ВКЛЮЧЕНИЯ ФОРМЫ, БЕЗ ПОЛЯ ИМЕНИ)
+           =========================================================================
+        const WEB3FORMS_ACCESS_KEY = "afbd92b7-fe51-45af-934c-b03e3906cd00";
         const phoneInput = document.getElementById('lead-phone');
         const phoneError = document.getElementById('phone-error');
 
-        phoneInput.addEventListener('input', function (e) {
-            let digits = e.target.value.replace(/\D/g, '');
-            if (!digits) {
-                e.target.value = '';
-                return;
-            }
-            if (digits[0] === '8' || digits[0] === '7') {
-                digits = '7' + digits.substring(1);
-            } else {
-                digits = '7' + digits;
-            }
-            digits = digits.substring(0, 11);
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function (e) {
+                let digits = e.target.value.replace(/\D/g, '');
+                if (!digits) {
+                    e.target.value = '';
+                    return;
+                }
+                if (digits[0] === '8' || digits[0] === '7') {
+                    digits = '7' + digits.substring(1);
+                } else {
+                    digits = '7' + digits;
+                }
+                digits = digits.substring(0, 11);
 
-            let formatted = '+7';
-            if (digits.length > 1) formatted += ' (' + digits.substring(1, 4);
-            if (digits.length >= 5) formatted += ') ' + digits.substring(4, 7);
-            if (digits.length >= 8) formatted += '-' + digits.substring(7, 9);
-            if (digits.length >= 10) formatted += '-' + digits.substring(9, 11);
+                let formatted = '+7';
+                if (digits.length > 1) formatted += ' (' + digits.substring(1, 4);
+                if (digits.length >= 5) formatted += ') ' + digits.substring(4, 7);
+                if (digits.length >= 8) formatted += '-' + digits.substring(7, 9);
+                if (digits.length >= 10) formatted += '-' + digits.substring(9, 11);
 
-            e.target.value = formatted;
-            phoneError.classList.add('hidden');
-            phoneInput.classList.remove('border-red-500');
-        });
+                e.target.value = formatted;
+                phoneError.classList.add('hidden');
+                phoneInput.classList.remove('border-red-500');
+            });
+        }
 
         function isValidRussianPhone(value) {
             const digits = value.replace(/\D/g, '');
@@ -962,7 +1068,6 @@
 
         async function submitLeadForm(e) {
             e.preventDefault();
-            const nameInput = document.getElementById('lead-name');
             const objectSelect = document.getElementById('lead-object');
             const messageInput = document.getElementById('lead-message');
             const consentCheckbox = document.getElementById('lead-consent');
@@ -972,11 +1077,6 @@
             const submitBtn = document.getElementById('submit-btn');
 
             if (botcheck && botcheck.checked) return;
-
-            if (!nameInput.value.trim()) {
-                nameInput.focus();
-                return;
-            }
 
             if (!isValidRussianPhone(phoneInput.value)) {
                 phoneError.classList.remove('hidden');
@@ -994,9 +1094,8 @@
 
             const formData = new FormData();
             formData.append("access_key", WEB3FORMS_ACCESS_KEY);
-            formData.append("subject", `Новая заявка СМАРТ 75 от ${nameInput.value.trim()}`);
+            formData.append("subject", `Новая заявка СМАРТ 75 (${phoneInput.value})`);
             formData.append("from_name", "Сайт СМАРТ 75 (Чита)");
-            formData.append("name", nameInput.value.trim());
             formData.append("phone", phoneInput.value);
             formData.append("object_type", objectSelect.value);
             formData.append("message", messageInput.value.trim() || "Не указано");
@@ -1027,6 +1126,7 @@
                 statusEl.className = 'text-center text-sm font-medium text-red-600 block pt-2';
             }
         }
+        ========================================================================= */
     </script>
 </body>
 </html>
